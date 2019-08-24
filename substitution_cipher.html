@@ -1,0 +1,90 @@
+<script>
+/*
+  -- substitution cipher --
+  "In cryptography, a substitution cipher is a method of encrypting by which units of plaintext are replaced with ciphertext"
+
+  About my example, I have a code number called data_birth with 6 numbers "061842"
+  (paul mccartney birthday!) also I have a data_txt which has a phase as string "HELLO THERE YOU FOUND ME" 
+  the idea is to encode this phase to:
+  H + 0 = H
+  E + 6 = K
+  L + 1 = M
+  L + 8 = T
+  O + 4 = S
+  space + 2 = space (because anything plus space is space)
+  T + 0 = T
+  H + 6 = N
+  E + 1 = F
+  R + 8 = Z
+  E + 4 = I
+  space + 2 = space
+  Y + 0 = Y
+  O + 6 = U
+  U + 1 = V
+  space + 8 = space
+  F + 4 = J
+  O + 2 = Q
+  U + 0 = U
+  N + 6 = T
+  D + 1 = E
+  space + 8 = space
+  M + 4 = Q
+  E + 2 = G
+
+*/
+
+var data_birth = [0,6,1,8,4,2]; //"180642"; just a random data birth
+var data_txt = "HELLO THERE YOU FOUND ME";  // txt
+var j = 0; // necessary to be an index in data_birth
+var cipher = ""; // necessary to start: a empty string
+
+// to go through all the values that are in txt
+for (let i = 0; i < data_txt.length; i++) { 
+ 
+  // according to ascii table 32 means " "
+  if (data_txt.charCodeAt(i) == 32) { 
+    cipher = cipher + " "; // every time that the program sees a space, it will keep the space
+  } else { 
+  		// String.fromCharCode() means converter decimal to char (ascii table)
+  		// charCodeAt() means converter char to decimal (ascii table)
+  		// so it gets a letter in the txt, converters it to decimal, sums a number in data_birth, and then, 
+  		// comes back to char. If this char is after than Z, in the ascii table, 
+  		// the new cipher will be the old cipher with a plus: 
+  		// letter in txt converted to decimal - 26, because for example:
+  		// I have the letter "Z" in the txt, I need change it or not (depends on the data_birth).
+  		// if I have to, everything will be after Z, so it will not be a letter,
+  		// for this reason, I need to come back to the beginning of the alphabet, 
+  		// it means that if I put -26 will come back to the beginning and
+  		// it will sum exactly what was add after Z
+		if (String.fromCharCode(data_txt.charCodeAt(i) + data_birth[j]) > "Z") {
+			cipher = cipher + String.fromCharCode(data_txt.charCodeAt(i) - 26);
+
+		// same thing happen, but the difference is if the letter in txt + data_birth
+		// will result in something before A, if yes, it sums +26 to continue in the alphabet
+		// and adds exactly what was add to go before A, so this is the new cipher
+		} else if (String.fromCharCode(data_txt.charCodeAt(i) + data_birth[j]) < "A") {
+		    cipher = cipher + String.fromCharCode(data_txt.charCodeAt(i) + 26);
+
+		// if the letter in txt + data_birth = something inside the alphabet, 
+		// the new cipher is the new letter 
+		} else { 
+		    cipher = cipher + String.fromCharCode(data_txt.charCodeAt(i) + data_birth[j]);
+		} 
+
+    } 
+
+  // necessary to get each value in data_birth 
+  j = j + 1;
+ 
+  // reset the "seed" for crypto 
+  // so every time it "overflows" the size of data_birth 
+  // it goes back to 0, as data_txt has arbitrary length and 
+  // can be bigger than data_birth
+  if (j >= data_birth.length) { 
+    j = 0; 
+  } 
+} 
+
+// print in a browser
+alert(cipher);
+</script>
