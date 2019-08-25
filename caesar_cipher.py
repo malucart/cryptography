@@ -55,12 +55,12 @@ def main():
         message_jumpdown = "\nJump down in {}\n".format(jumpdown)
         # it goes through each letter of the cryptography text
         for letter_encrypt in txt_encrypt:
-        	# txt_decrypt calls letter_jumpdown method with two arguments
-        	# in brief, the original text will be txt_decrypt + (letter encrypted - jumpdown)
-        	# for the first case, the first letter encrypted is "J" because the first jumpdown is 0,
-        	# so there is no any jump down, consequentely, txt_decrypt is the txt_encrypt
-        	# for the second case, the first letter encrypted is "I" because the second jumpdown is 1,
-        	# so there is 1 jump down, consequentely, txt_decrypt is all the letters - 1
+            # txt_decrypt calls letter_jumpdown method with two arguments
+            # in brief, the original text will be txt_decrypt + (letter encrypted - jumpdown)
+            # for the first case, the first letter encrypted is "J" because the first jumpdown is 0,
+            # so there is no any jump down, consequentely, txt_decrypt is the txt_encrypt
+            # for the second case, the first letter encrypted is "I" because the second jumpdown is 1,
+            # so there is 1 jump down, consequentely, txt_decrypt is all the letters - 1
             txt_decrypt += letter_jumpdown(letter_encrypt, -jumpdown) 
 
         # print the jump down (key), plaintext and it ask you if you can understand it 
