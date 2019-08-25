@@ -5,7 +5,7 @@
 	For example, with the key 1, I becomes H, F would becomes E, Z becames Y, and so on. 
 	"The method is named after Julius Caesar, who apparently used it to communicate with his generals".
 
-	The idea in this code is to find the plaintext (the original text without criptography). 
+	The idea in this code is to find the cleartext (the original text without criptography). 
 
 	hint: I found it and it is in spanish language
 
