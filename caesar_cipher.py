@@ -1,6 +1,7 @@
 '''
 	-- caesar cipher --
-	In cryptography, a caesar cipher is a type of substitution cipher in which each letter in the plaintext is jumped down using the same number (key). 
+	In cryptography, a caesar cipher is a type of substitution cipher and each letter in the plaintext is jumped down 
+	using the same number (key). 
 	For example, with the key 1, I becomes H, F would becomes E, Z becames Y, and so on. 
 	"The method is named after Julius Caesar, who apparently used it to communicate with his generals".
 
