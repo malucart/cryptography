@@ -14,9 +14,9 @@
 # hint: start in "if __name__ == '__main__':"
 # second method called with two arguments
 def letter_jumpdown(letter, position):
-	# variable responsable to trasform all the letter in upper letter
-	# example: if there is "d" it will be "D" which is 68, so 68 - 65 = 3 
-	# 3 -> [0,1,2,3] -> [A,B,C,D]
+    # variable responsable to trasform all the letter in upper letter
+    # example: if there is "d" it will be "D" which is 68, so 68 - 65 = 3 
+    # 3 -> [0,1,2,3] -> [A,B,C,D]
     char_ascii = ord(letter.upper()) - 65     
     
     # it is necessary when the char_ascii is anything but it is not a letter, 
