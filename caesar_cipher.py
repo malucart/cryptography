@@ -21,7 +21,7 @@ def letter_jumpdown(letter, position):
     
     # it is necessary when the char_ascii is anything but it is not a letter, 
     # so it could be for example "," "!" "?" "."   
-    # result: same char_ascii, in other words, it will not change                                     
+    # result: same char_ascii, in other words, it will no change                                     
     if char_ascii < 0 or char_ascii > 25:   
         return letter
 
