@@ -26,7 +26,7 @@ def letter_jumpdown(letter, position):
         return letter
 
     # according the previous example, 3 % 26 = 3
-    # then, new_letter is 3 + position (let's use 1, and the argument was -jumpdown, remember?
+    # then, new_letter is 3 + position (let's use 1, but the argument was -jumpdown, remember?
     # so it is -1)
     # = 3 - 1 = 2
     # 2 % 26 = 2
