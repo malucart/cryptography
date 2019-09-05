@@ -97,15 +97,20 @@ def letter_jumpdown(letter, position, j):
       # using "C" as the second letter in the txt_encrypt
       for i in alphabet:
         # if i == C:
-        print('[-] i value: {0} - letter value: {1}'.format(i, letter))
+        #print('[-] i value: {0} - letter value: {1}'.format(i, letter))
         if i == letter.upper():
             # result2 = ord('C') - (-12)
             # result2 = 67 + 12
             # result2 = 79
             # result2 = O // this is the result!!
-            result2 = chr(len(i) - result)
-            # return O
-            print("wow")
+            result2 = chr(ord(letter.upper()) - result)
+            # it is to change j, to be always a letter after another
+            #i = i + 1
+
+            # it is to the key doesn't stop, if it is over it will start again
+            #if i >= len(alphabet):
+             #i = 0
+
             return result2
 
 # first method called without argument
@@ -113,8 +118,6 @@ def main():
 
   # txt_encrypt is the string that has cryptography, it means we dont understand it
   txt_encrypt = "SCQ CHL HYYGU OO"
-             #  "ROCKETROCKETROCK"
-             #  "BOO YOU FOUND ME"
   # txt_decrypt is the empty string which is necessary to save the original text without cryptography soon
   txt_decrypt = ""
   # key for decrypting the cipher
