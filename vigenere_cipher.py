@@ -30,86 +30,134 @@
 
 # second method called with two arguments
 def letter_jumpdown(letter, position, j):
+  # necessary to compare array soon
   alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
-  # variable responsable to trasform all the letter in upper letter
-  # example: if there is "d" it will be "D" which is 68, so 68 - 65 = 3
-  # 3 -> [0,1,2,3] -> [A,B,C,D]
-  # using "S" as the first letter in txt_encrypt
-  # ord('S') == 83
-  # so 83 - 65 = 18
+  # upper(): responsable to trasform all the letter in upper letter
+  # but it already is upper letter or it is another thing but no a letter, keep on the same character
+  # example 1:
+  # using 'S' as the first letter in txt_encrypt
+  # char_ascii = ord('S') - 65
+  # char_ascii = 83 - 65
   # char_ascii = 18
   #
-  # using "Q" as the second letter in txt_encrypt
+  # example 2:
+  # using 'C' as the second letter in txt_encrypt
   # char_ascii = ord('C') - 65
   # char_ascii = 67 - 65
   # char_ascii = 2
+  #
+  # example 3:
+  # using 'Q' as the third letter in txt_encrypt
+  # char_ascii = ord('Q') - 65
+  # char_ascii = 81 - 65
+  # char_ascii = 16
   char_ascii = ord(letter.upper()) - 65
 
   # it is necessary when the char_ascii is anything but it is not a letter,
   # so it could be for example "," "!" "?" "."
-  # result: the character will not change, in other words, same ~letter~
-  # using "S" as the first letter in txt_encrypt
+  # result: the character will not change
+  # example 1:
+  # using 'S' as the first letter in txt_encrypt
   # 18 is not less than 0 either more than 25, so ignore it
   #
-  # using "C" as the second letter in txt_encrypt
+  # example 2:
+  # using 'C' as the second letter in txt_encrypt
   # 2 is not less than 0 either more than 25, so ignore it
+  #
+  # example 3:
+  # using 'Q' as the third letter in txt_encrypt
+  # 16 is not less than 0 either more than 25, so ignore it
   if char_ascii < 0 or char_ascii > 25:
     return letter
+
   # if char_ascii is the same than a letter on the key, it will return "A"
-  # using "S" as the first letter in txt_encrypt
-  # S is different than R (position[j]), next
+  # example 1:
+  # using 'S' as the first letter in txt_encrypt
+  # 'S' is different than 'R' (position[0]), so ignore it again
   #
-  # using "C" as the second letter in txt_encrypt
-  # C == position[j]
-  # C == O
-  # C is not equal O, so ignore it
+  # example 2:
+  # using 'C' as the second letter in txt_encrypt
+  # 'C' is different than 'O' (position[1]), so ignore it again
+  #
+  # example 3:
+  # using 'Q' as the third letter in txt_encrypt
+  # 'Q' is different than 'C' (position[2]), so ignore it again
   elif letter.upper() == position[j]:
     return "A"
 
   # if char_ascii is not the same than a letter on the key and it is not something random like "." "!" etc
-  # so it will return for example
-  # using "S" as the first letter in txt_encrypt...
-  #
-  # also using "C" as the second letter in the txt_encrypt...
+  # it has to enter here
   else:
-    # result = ord('S') - ord('R') = 83 - 82 = 1
+
+    # example 1:
+    # using 'S' as the first letter in txt_encrypt
+    # result = ord('S') - ord('R')
+    # result = 83 - 82
+    # result = 1
     #
+    # example 2:
+    # using 'C' as the second letter in txt_encrypt
     # result = ord('C') - ord('O')
     # result = 67 - 79
     # result = -12
-    result = ord(letter.upper()) - ord(position[j])
-    # it means that 1 is more than zero and less than 27
     #
-    # it means that 2 is more than zero and less than 27
+    # example 3:
+    # using 'Q' as the third letter in txt_encrypt
+    # result = ord('Q') - ord('C')
+    # result = 81 - 67
+    # result = 14
+    result = ord(letter.upper()) - ord(position[j])
+
+    # it means that the number has to be more than zero and less than 27
+    # because I'm using the alphabet size (which is 26)
+    # example 1:
+    # result = 1, so it stays here
+    #
+    # example 2:
+    # result = -12, so ignore it and go ahead
+    #
+    # example 3:
+    # result = 14, so it stays here
     if result > 0 and result < 27:
-      # return chr(ord('A') + 1)
-      # return chr(65 + 1)
-      # return chr(66)
-      # return B // this is the result!
+
+      # example 1:
+      # chr(ord('A') + result)
+      # chr(65 + 1)
+      # chr(66)
+      # B
+      # returns B
       #
-      # return chr(ord('A') + 2)
-      # return chr(65 + 2)
-      # return chr(67)
-      # return B // this is the result!
-      return chr(ord("A") + result)
+      # example 2:
+      # it is not here
+      #
+      # example 3:
+      # chr(ord('A') + result)
+      # chr(65 + 14)
+      # chr(79)
+      # O
+      # return O
+      result3 = chr(ord('A') + result)
+      print('[-] result_3: {0}'.format(result3))
+      return result3
     else:
-      # using "C" as the second letter in the txt_encrypt
+      # example 2 stays here
       for i in alphabet:
-        # if i == C:
-        #print('[-] i value: {0} - letter value: {1}'.format(i, letter))
+
+        # if i == 'C' (in some moment it will be)
         if i == letter.upper():
+
             # result2 = ord('C') - (-12)
             # result2 = 67 + 12
             # result2 = 79
             # result2 = O // this is the result!!
             result2 = chr(alphabet.index(i) - result)
             # it is to change j, to be always a letter after another
-            alphabet.index(i) += 1
+            #i = i + 1
 
             # it is to the key doesn't stop, if it is over it will start again
-            if alphabet.index(i) >= len(alphabet):
-             alphabet.index(i) = 0
+            #if i >= len(alphabet):
+             #i = 0
 
             return result2
 
