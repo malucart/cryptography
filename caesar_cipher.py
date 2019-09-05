@@ -1,146 +1,77 @@
 '''
-  -- vigenere cipher --
-  It is a method of encrypting alphabetic text based on letters.
-  You can see more examples and explanation here:
-  https://en.wikipedia.org/wiki/Vigenère_cipher
-
-  In my example, I have a key called ROCKET
-  and I need to decrypt a text (txt_encrypt) according with this key
-
-  If I have "S" and the first letter in the key is "R"
-  A = 1, B = 2, C = 3, D = 4 [...]
-  it means that S = 19 and R = 18
-  so it jumps down 1 letter
-  19 - 18 = 1
-  starting in A, A + 1 = B
-  result: with S letter and R key, the real text (plaintext) is B
-
-  Now example with the next letter and key,
-  C instead of S, O instead of R
-  it means that C = 3 and O = 15
-  so it jumps down 14 letters
-  starting in A, A + 14 = O
-  resukt: with C letter and O key, the plaintext is O
-
-  and so on.
-
+	-- caesar cipher --
+	In cryptography, a caesar cipher is a type of substitution cipher in which each letter in the plaintext is jumped down using the same number (key). 
+	For example, with the key 1, I becomes H, F would becomes E, Z becames Y, and so on. 
+	"The method is named after Julius Caesar, who apparently used it to communicate with his generals".
+	The idea in this code is to find the plaintext (the original text without criptography). 
+	hint: I found it and it is in spanish language
 '''
 
 # hint: start in "if __name__ == '__main__':"
-
 # second method called with two arguments
-def letter_jumpdown(letter, position, j):
-  alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+def letter_jumpdown(letter, position):
+	# variable responsable to trasform all the letter in upper letter
+	# example: if there is "d" it will be "D" which is 68, so 68 - 65 = 3 
+	# 3 -> [0,1,2,3] -> [A,B,C,D]
+    char_ascii = ord(letter.upper()) - 65     
+    
+    # it is necessary when the char_ascii is anything but it is not a letter, 
+    # so it could be for example "," "!" "?" "."   
+    # result: same char_ascii, in other words, it will not change                                     
+    if char_ascii < 0 or char_ascii > 25:   
+        return letter
 
-  # variable responsable to trasform all the letter in upper letter
-  # example: if there is "d" it will be "D" which is 68, so 68 - 65 = 3
-  # 3 -> [0,1,2,3] -> [A,B,C,D]
-  # using "S" as the first letter in txt_encrypt
-  # ord('S') == 83
-  # so 83 - 65 = 18
-  # char_ascii = 18
-  #
-  # using "Q" as the second letter in txt_encrypt
-  # char_ascii = ord('C') - 65
-  # char_ascii = 67 - 65
-  # char_ascii = 2
-  char_ascii = ord(letter.upper()) - 65
+    # according the previous example, 3 % 26 = 3
+    # then, new_letter is 3 + position (let's use 1, and the argument was -jumpdown, remember?
+    # so it is -1)
+    # = 3 - 1 = 2
+    # 2 % 26 = 2
+    # 2 + 65 = 67 -> "C"
+    decimal_ascii = (char_ascii) % 26
+    new_letter = chr(((decimal_ascii  + position) % 26) + 65)
 
-  # it is necessary when the char_ascii is anything but it is not a letter,
-  # so it could be for example "," "!" "?" "."
-  # result: the character will not change, in other words, same ~letter~
-  # using "S" as the first letter in txt_encrypt
-  # 18 is not less than 0 either more than 25, so ignore it
-  #
-  # using "C" as the second letter in txt_encrypt
-  # 2 is not less than 0 either more than 25, so ignore it
-  if char_ascii < 0 or char_ascii > 25:
-    return letter
-  # if char_ascii is the same than a letter on the key, it will return "A"
-  # using "S" as the first letter in txt_encrypt
-  # S is different than R (position[j]), next
-  #
-  # using "C" as the second letter in txt_encrypt
-  # C == position[j]
-  # C == O
-  # C is not equal O, so ignore it
-  elif letter.upper() == position[j]:
-    return "A"
+    # returns "C"
+    return new_letter
 
-  # if char_ascii is not the same than a letter on the key and it is not something random like "." "!" etc
-  # so it will return for example
-  # using "S" as the first letter in txt_encrypt...
-  #
-  # also using "C" as the second letter in the txt_encrypt...
-  else:
-    # result = ord('S') - ord('R') = 83 - 82 = 1
-    #
-    # result = ord('C') - ord('O')
-    # result = 67 - 79
-    # result = -12
-    result = ord(letter.upper()) - ord(position[j])
-    # it means that 1 is more than zero and less than 27
-    #
-    # it means that 2 is more than zero and less than 27
-    if result > 0 and result < 27:
-      # return chr(ord('A') + 1)
-      # return chr(65 + 1)
-      # return chr(66)
-      # return B // this is the result!
-      #
-      # return chr(ord('A') + 2)
-      # return chr(65 + 2)
-      # return chr(67)
-      # return B // this is the result!
-      return chr(ord("A") + result)
-    else:
-      # using "C" as the second letter in the txt_encrypt
-      for i in alphabet:
-        # if i == C:
-        #print('[-] i value: {0} - letter value: {1}'.format(i, letter))
-        if i == letter.upper():
-            # result2 = ord('C') - (-12)
-            # result2 = 67 + 12
-            # result2 = 79
-            # result2 = O // this is the result!!
-            result2 = chr(ord(letter.upper()) - result)
-            # it is to change j, to be always a letter after another
-            #i = i + 1
-
-            # it is to the key doesn't stop, if it is over it will start again
-            #if i >= len(alphabet):
-             #i = 0
-
-            return result2
-
-# first method called without argument
+# first method called without argument 
 def main():
+	# txt_encrypt is the string that has cryptography, it meaans we dont understand it
+    txt_encrypt = "Jz, jrsvj hlv pr ccvmf le irkf dzireufkv Kvexf hlv srzcri tfekzxf yfp (Up) Mz hlv kl dzirur pr vjkrsr ccrdreufdv Dléjkirdv vc trdzef hlv pf mfp (fy) Kl, kl vivj vc zdre p pf jfp vc dvkrc Dv mfp rtvitreuf p mfp ridreuf vc gcre Jfcf tfe gvejricf jv rtvcvir vc glcjf (fy pvry) Pr, pr dv vjkr xljkreuf drj uv cf efidrc Kfufj dzj jvekzufj mre gzuzveuf dáj Vjkf yrp hlv kfdricf jze ezexúe rglif Uvjgrtzkf Hlzvif ivjgziri kl tlvccf uvjgrtzkf Uvar hlv kv uzxr tfjrj rc fzuf Grir hlv kv rtlviuvj jz ef vjkrj tfedzxf Uvjgrtzkf Hlzvif uvjelurikv r svjfj uvjgrtzkf Wzidf ve crj grivuvj uv kl crsvizekf P yrtvi uv kl tlvigf kfuf le dreljtizkf Jlsv jlsv Jlsv, jlsv, jlsv Hlzvif mvi srzcri kl gvcf Hlzvif jvi kl izkdf Hlv cv vejvñvj r dz sftr Klj clxrivj wrmfizkfj (wrmfizkf, wrmfizkf srsp) Uvardv jfsivgrjri klj qferj uv gvczxif Yrjkr gifmftri klj xizkfj P hlv fcmzuvj kl rgvcczuf Jz kv gzuf le svjf mve urdvcf Pf jv hlv vjkrj gvejreufcf Ccvmf kzvdgf zekvekreufcf Drdz vjkf vj ureuf p ureufcf Jrsvj hlv kl tfirqfe tfedzxf kv yrtv sfd sfd! Jrsvj hlv vjr svsr vjkr sljtreuf uv dz sfd sfd! Mve gilvsr uv dz sftr grir mvi tfdf kv jrsv Hlzvif hlzvif mvi tlrekf rdfi r kz kv trsv Pf ef kvexf gizjr pf dv hlzvif uri vc mzrav Vdgvtvdfj cvekf, uvjglvj jrcmrav Grjzkf r grjzkf, jlrmv jlrmvtzkf Efj mrdfj gvxreuf, gfhlzkf r gfhlzkf Tlreuf kl dv svjrj tfe vjr uvjkivqr Mvf hlv vivj drcztzr tfe uvcztruvqr Grjzkf r grjzkf, jlrmv jlrmvtzkf Efj mrdfj gvxreuf, gfhlzkf r gfhlzkf P vj hlv vjr svccvqr vj le ifdgvtrsvqrj Gvif gr dfekricf rhlí kvexf cr gzvqr Uvjgrtzkf Hlzvif ivjgziri kl tlvccf uvjgrtzkf Uvar hlv kv uzxr tfjrj rc fzuf Grir hlv kv rtlviuvj jz ef vjkrj tfedzxf Uvjgrtzkf Hlzvif uvjelurikv r svjfj uvjgrtzkf Wzidf ve crj grivuvj uv kl crsvizekf P yrtvi uv kl tlvigf kfuf le dreljtizkf Jlsv, jlsv, jlsv, jlsv, jlsv Hlzvif mvi srzcri kl gvcf Hlzvif jvi kl izkdf Hlv cv vejvevj r dz sftr Klj clxrivj wrmfizkfj (wrmfizkf, wrmfizkf srsp) Uvardv jfsivgrjri klj qferj uv gvczxif Yrjkr gifmftri klj xizkfj P hlv fcmzuvj kl rgvcczuf Uvjgrtzkf Mrdfj r yrtvicf ve ler gcrpr ve Glvikf Iztf Yrjkr hlv crj fcrj xizkve Rp Sveuzkf Grir hlv dz jvccf jv hlvuv tfekzxf Grjzkf r grjzkf, jlrmv jlrmvtzkf Efj mrdfj gvxreuf, gfhlzkf r gfhlzkf Hlv cv vejvñvj r dz sftr Klj clxrivj wrmfizkfj (wrmfizkf, wrmfizkf srsp) Grjzkf r grjzkf, jlrmv jlrmvtzkf Efj mrdfj gvxreuf, gfhlzkf r gfhlzkf Yrjkr gifmftri klj xizkfj P hlv fcmzuvj kl rgvcczuf Uvjgrtzkf . Uvjgrtzkf jvizr ldr sfr jveyr grir kirsrcyfj wlklifj, erf rtyr?"
+    
+    # txt_decrypt is the empty string which is necessary to save the original text without cryptography soon
+    txt_decrypt = ""
 
-  # txt_encrypt is the string that has cryptography, it means we dont understand it
-  txt_encrypt = "SCQ CHL HYYGU OO"
-  # txt_decrypt is the empty string which is necessary to save the original text without cryptography soon
-  txt_decrypt = ""
-  # key for decrypting the cipher
-  key = "ROCKET"
-  # declare it as a character
-  letter_encrypt = chr
+    # empty string which is necessary to save the jump down (key)
+    message_jumpdown = ""
+    # it starts in 0 and it goes until 25, because of the alphabet.
+    # it goes through each letter of the alphabet 
+    for jumpdown in range(0, 26):
 
-  # it goes through each letter of the cryptography text
-  j = 0
-  for letter_encrypt in txt_encrypt:
-    # txt_decrypt calls letter_jumpdown method with two arguments
-    letter = letter_jumpdown(letter_encrypt, key, j)
-    txt_decrypt += letter
-    # it is to change j, to be always a letter after another
-    j = j + 1
+    	# print which jump down is
+        message_jumpdown = "\nJump down in {}\n".format(jumpdown)
+        # it goes through each letter of the cryptography text
+        for letter_encrypt in txt_encrypt:
+        	# txt_decrypt calls letter_jumpdown method with two arguments
+        	# in brief, the original text will be txt_decrypt + (letter encrypted - jumpdown)
+        	# for the first case, the first letter encrypted is "J" because the first jumpdown is 0,
+        	# so there is no any jump down, consequentely, txt_decrypt is the txt_encrypt
+        	# for the second case, the first letter encrypted is "I" because the second jumpdown is 1,
+        	# so there is 1 jump down, consequentely, txt_decrypt is all the letters - 1
+            txt_decrypt += letter_jumpdown(letter_encrypt, -jumpdown) 
 
-    # it is to the key doesn't stop, if it is over it will start again
-    if j >= len(key):
-        j = 0
+        # print the jump down (key), plaintext and it ask you if you can understand it 
+        print(message_jumpdown)
+        print(txt_decrypt)
+        print("\nIs it decrypted? [1 - YES; 2 - NO]")
+        # user types 1 or 2
+        console = input()
+        # if user types 1, the program is finished
+        if console.upper() == '1'.upper():
+            break
 
-  # print plaintext
-  print("The plaintext is: ", txt_decrypt)
+        # reset the old information here, so the print is more organized
+        txt_decrypt = ''
 
 # it is necessary for the interpreter to understand that the program must initially runs here
 if __name__ == '__main__':
-  main()
+	main()
