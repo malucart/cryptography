@@ -25,11 +25,13 @@
   and so on.
 
 '''
+#import numpy as np
 
 # hint: start in "if __name__ == '__main__':"
 
 # second method called with two arguments
 def letter_jumpdown(letter, position, j):
+  print("----------------------")
   # necessary to compare array soon
   alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
@@ -108,7 +110,7 @@ def letter_jumpdown(letter, position, j):
     # result = 81 - 67
     # result = 14
     result = ord(letter.upper()) - ord(position[j])
-
+    print('[-] result: {0}'.format(result))
     # it means that the number has to be more than zero and less than 27
     # because I'm using the alphabet size (which is 26)
     # example 1:
@@ -137,9 +139,9 @@ def letter_jumpdown(letter, position, j):
       # chr(79)
       # O
       # return O
-      result3 = chr(ord('A') + result)
-      print('[-] result_3: {0}'.format(result3))
-      return result3
+      final_result_1 = chr(ord('A') + result)
+      print('[-] final_result_1: {0}'.format(final_result_1))
+      return final_result_1
     else:
       # example 2 stays here
       for i in alphabet:
@@ -147,19 +149,16 @@ def letter_jumpdown(letter, position, j):
         # if i == 'C' (in some moment it will be)
         if i == letter.upper():
 
-            # result2 = ord('C') - (-12)
-            # result2 = 67 + 12
-            # result2 = 79
+            # result2 = C - (-12)
             # result2 = O // this is the result!!
-            result2 = chr(alphabet.index(i) - result)
-            # it is to change j, to be always a letter after another
-            #i = i + 1
+            final_result_3 = alphabet.index(i) - result;
+            final_result_2 = alphabet[alphabet.index(i) - result]
 
-            # it is to the key doesn't stop, if it is over it will start again
-            #if i >= len(alphabet):
-             #i = 0
-
-            return result2
+            print("[-] final_result_3: {0}".format(final_result_3))
+            print("[-] alphabet.index(i) value: {0}".format(alphabet.index(i)))
+            print("[-] result value: {0}".format(result))
+            print("[-] final_result_2: {0}".format(final_result_2))
+            return final_result_2
 
 # first method called without argument
 def main():
