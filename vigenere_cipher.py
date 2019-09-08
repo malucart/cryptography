@@ -109,7 +109,7 @@ def letter_jumpdown(letter, position, j):
     # result = ord('Q') - ord('C')
     # result = 81 - 67
     # result = 14
-    result = ord(letter.upper()) - ord(position[j])
+    result = (ord(letter.upper()) - ord(position[j]))%26
     print('[-] result: {0}'.format(result))
     # it means that the number has to be more than zero and less than 27
     # because I'm using the alphabet size (which is 26)
@@ -151,8 +151,8 @@ def letter_jumpdown(letter, position, j):
 
             # result2 = C - (-12)
             # result2 = O // this is the result!!
-            final_result_3 = alphabet.index(i) - result;
-            final_result_2 = alphabet[alphabet.index(i) - result]
+            final_result_3 = (alphabet.index(i) - result);
+            final_result_2 = alphabet[final_result_3]
 
             print("[-] final_result_3: {0}".format(final_result_3))
             print("[-] alphabet.index(i) value: {0}".format(alphabet.index(i)))
